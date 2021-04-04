@@ -43,8 +43,11 @@
 #ifndef __OPENCV_PRECOMP_H__
 #define __OPENCV_PRECOMP_H__
 
+#include "cvconfig.h"
+
 #include "opencv2/cudasurface.hpp"
+#include "opencv2/core/utility.hpp"
+
 #include "opencv2/core/private.cuda.hpp"
-#include "opencv2/core/cuda_types.hpp"
 
 #endif /* __OPENCV_PRECOMP_H__ */

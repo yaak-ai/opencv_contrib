@@ -51,24 +51,26 @@ void cv::cuda::ptr2mat(size_t, OutputArray, int, int, int, Stream&){ throw_no_cu
 
 #else // HAVE_CUDA
 
-namespace cv { namespace cuda { namespace device
-{
-    namespace suface
-    {
-        template <typename T>
-        void ptr2mat_gpu(size_t src, OutputArray srcWhole, int height, int width, int type, Stream& stream);
-    }
-}}}
+namespace {
+
+  typedef void (*ptr_func_t)(const size_t ptr, GpuMat& src2, int height, int width, int type, Stream& stream);
+
+  void ptr2map_op(size_t _ptr, OutputArray _dst, int height, int width, int type, Stream& stream, ptr_func_t func) {
+
+    _dst.create(height, width, type);
+    GpuMat dst = getOutputMat(_dst, height, width, type, stream);
+
+    func(_ptr, dst, height, width, type, stream);
+
+    syncOutput(dst, _dst, stream);
+  }
+}
 
 void ptr2mat_gpu(const size_t _ptr, GpuMat& dst, int height, int width, int type, Stream& stream);
 
 void cv::cuda::ptr2mat(size_t _ptr, OutputArray _dst, int height, int width, int type, Stream& stream)
 {
-    GpuMat dst = getOutputMat(_dst, width, height, type, stream);
-
-    ptr2mat_gpu(_ptr, dst, height, width, type, stream);
-
-    syncOutput(dst, _dst, stream);
+  ptr2map_op(_ptr, _dst, height, width, type, stream, ptr2mat_gpu);
 }
 
 #endif // HAVE_CUDA
