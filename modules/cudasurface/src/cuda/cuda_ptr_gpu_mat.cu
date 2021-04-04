@@ -49,10 +49,7 @@
 #else
 
 #include "opencv2/cudev.hpp"
-#include "opencv2/core/private.cuda.hpp"
 
-using namespace cv;
-using namespace cv::cuda;
 using namespace cv::cudev;
 
 void ptr2mat_gpu(const size_t _ptr, GpuMat& _dst, int height, int width, int type, Stream& stream);
@@ -63,7 +60,7 @@ void ptr2mat_gpu(const size_t _ptr, GpuMat& _dst, int height, int width, int typ
 
     printf("Got dst HxW %dx%d type %d ptr %llu \n", _mat.rows, _mat.cols, _mat.type(), _ptr );
 
-    _dst = _mat;
+    _mat.copyTo(_dst, stream);
 
     printf("Copied source to dest\n");
 }
