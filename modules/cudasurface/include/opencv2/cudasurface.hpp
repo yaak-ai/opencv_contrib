@@ -65,7 +65,7 @@ namespace cv { namespace cuda {
 Build cv::cuda::GpuMat with pre-allocated data (gpu pointer)
 @sa ptr2mat
  */
-CV_EXPORTS_W void ptr2mat(size_t ptr, OutputArray dst, int width, int height, int type, Stream& stream = Stream::Null());
+CV_EXPORTS_W void ptr2mat(size_t ptr, InputOutputArray src, int height, int width, int type, Stream& stream = Stream::Null());
 
 /*
 Cuda Device Pointer from cv::cuda::GpuMat

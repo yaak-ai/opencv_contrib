@@ -44,7 +44,17 @@
 #define __OPENCV_PRECOMP_H__
 
 #include "opencv2/cudasurface.hpp"
+#include "opencv2/core/utility.hpp"
+
 #include "opencv2/core/private.cuda.hpp"
-#include "opencv2/core/cuda_types.hpp"
+
+#ifdef HAVE_CUBLAS
+#  include <cublas.h>
+#endif
+
+#ifdef HAVE_CUFFT
+#  include <cufft.h>
+#endif
+
 
 #endif /* __OPENCV_PRECOMP_H__ */
