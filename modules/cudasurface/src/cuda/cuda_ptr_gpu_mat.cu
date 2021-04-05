@@ -57,7 +57,9 @@ void ptr2mat_gpu(const size_t _ptr, GpuMat& _dst, int height, int width, int typ
 void ptr2mat_gpu(const size_t _ptr, GpuMat& _dst, int height, int width, int type, Stream& stream){
 
     GpuMat _mat = GpuMat(height, width, type, (void *) _ptr);
+
     _mat.swap(_dst);
+
 }
 
 #endif

@@ -43,6 +43,8 @@
 #ifndef __OPENCV_PRECOMP_H__
 #define __OPENCV_PRECOMP_H__
 
+#include "cvconfig.h"
+
 #include "opencv2/cudasurface.hpp"
 #include "opencv2/core/utility.hpp"
 
@@ -55,6 +57,5 @@
 #ifdef HAVE_CUFFT
 #  include <cufft.h>
 #endif
-
 
 #endif /* __OPENCV_PRECOMP_H__ */
