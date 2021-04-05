@@ -92,12 +92,7 @@ namespace cv
         @note If the window with that name already exists, that window is returned. Otherwise, new window is
         created with the given name, and it is returned.
 
-        @note Window names are automatically prefixed by "Viz - " if it is not done by the user.
-           @code
-            /// window and window_2 are the same windows.
-            viz::Viz3d window   = viz::getWindowByName("myWindow");
-            viz::Viz3d window_2 = viz::getWindowByName("Viz - myWindow");
-            @endcode
+
          */
         CV_EXPORTS Viz3d getWindowByName(const String &window_name);
 
@@ -153,7 +148,7 @@ namespace cv
          *                Supported channels: 3 and 4.
          * @param binary Used only for PLY format.
          */
-        CV_EXPORTS void writeCloud(const String& file, InputArray cloud, InputArray colors = noArray(), InputArray normals = noArray(), bool binary = false);
+        CV_EXPORTS_W void writeCloud(const String& file, InputArray cloud, InputArray colors = noArray(), InputArray normals = noArray(), bool binary = false);
 
         /**
          * @param file Filename with extension. Supported formats: PLY, XYZ, OBJ and STL.
@@ -162,12 +157,12 @@ namespace cv
          * @return A mat containing the point coordinates with depth CV_32F or CV_64F and number of
          *         channels 3 or 4 with only 1 row.
          */
-        CV_EXPORTS Mat  readCloud (const String& file, OutputArray colors = noArray(), OutputArray normals = noArray());
+        CV_EXPORTS_W Mat  readCloud (const String& file, OutputArray colors = noArray(), OutputArray normals = noArray());
 
         ///////////////////////////////////////////////////////////////////////////////////////////////
         /// Reads mesh. Only ply format is supported now and no texture load support
 
-        CV_EXPORTS Mesh readMesh(const String& file);
+        CV_EXPORTS_W Mesh readMesh(const String& file);
 
         ///////////////////////////////////////////////////////////////////////////////////////////////
         /// Read/write poses and trajectories
@@ -216,7 +211,7 @@ namespace cv
          * @param mesh Input mesh.
          * @param normals Normals at very point in the mesh of type CV_64FC3.
          */
-        CV_EXPORTS void computeNormals(const Mesh& mesh, OutputArray normals);
+        CV_EXPORTS_W void computeNormals(const Mesh& mesh, OutputArray normals);
 
 //! @}
 

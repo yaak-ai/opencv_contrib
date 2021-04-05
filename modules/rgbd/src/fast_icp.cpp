@@ -32,7 +32,6 @@ public:
                                    InputArray oldPoints, InputArray oldNormals,
                                    InputArray newPoints, InputArray newNormals
                                    ) const override;
-
     template < typename T >
     bool estimateTransformT(cv::Affine3f& transform,
                             const vector<T>& oldPoints, const vector<T>& oldNormals,
@@ -298,7 +297,6 @@ struct GetAbInvoker : ParallelLoopBody
                     continue;
 
                 // build point-wise vector ab = [ A | b ]
-
                 v_float32x4 VxNv = crossProduct(newP, oldN);
                 Point3f VxN;
                 VxN.x = VxNv.get0();
@@ -449,7 +447,6 @@ struct GetAbInvoker : ParallelLoopBody
                 //try to optimize
                 Point3f VxN = newP.cross(oldN);
                 float ab[7] = {VxN.x, VxN.y, VxN.z, oldN.x, oldN.y, oldN.z, oldN.dot(-diff)};
-
                 // build point-wise upper-triangle matrix [ab^T * ab] w/o last row
                 // which is [A^T*A | A^T*b]
                 // and gather sum
@@ -507,7 +504,7 @@ void ICPImpl::getAb<Mat>(const Mat& oldPts, const Mat& oldNrm, const Mat& newPts
     const Normals np(newPts), nn(newNrm);
     GetAbInvoker invoker(sumAB, mutex, op, on, np, nn, pose,
                          intrinsics.scale(level).makeProjector(),
-                         distanceThreshold*distanceThreshold, cos(angleThreshold));
+                         distanceThreshold*distanceThreshold, std::cos(angleThreshold));
     Range range(0, newPts.rows);
     const int nstripes = -1;
     parallel_for_(range, invoker, nstripes);
@@ -593,7 +590,7 @@ void ICPImpl::getAb<UMat>(const UMat& oldPts, const UMat& oldNrm, const UMat& ne
                                     sizeof(pose.matrix.val)),
            fxy.val, cxy.val,
            distanceThreshold*distanceThreshold,
-           cos(angleThreshold),
+           std::cos(angleThreshold),
            ocl::KernelArg::Local(lsz),
            ocl::KernelArg::WriteOnlyNoSize(groupedSumGpu)
            );
