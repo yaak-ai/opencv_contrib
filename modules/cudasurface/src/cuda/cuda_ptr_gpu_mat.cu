@@ -57,15 +57,7 @@ void ptr2mat_gpu(const size_t _ptr, GpuMat& _dst, int height, int width, int typ
 void ptr2mat_gpu(const size_t _ptr, GpuMat& _dst, int height, int width, int type, Stream& stream){
 
     GpuMat _mat = GpuMat(height, width, type, (void *) _ptr);
-
-    printf("[ptr2mat_gpu] Before _mat HxW %dx%d type %d ptr %lu device ptr %lu \n", _mat.rows, _mat.cols, _mat.type(), _ptr, _mat.cudaPtr() );
-    printf("[ptr2mat_gpu] Before _dst HxW %dx%d type %d ptr %lu device ptr %lu \n", _dst.rows, _dst.cols, _dst.type(), _ptr, _dst.cudaPtr() );
-
     _mat.swap(_dst);
-
-    printf("[ptr2mat_gpu] After _mat HxW %dx%d type %d ptr %lu device ptr %lu \n", _mat.rows, _mat.cols, _mat.type(), _ptr, _mat.cudaPtr() );
-    printf("[ptr2mat_gpu] After _dst HxW %dx%d type %d ptr %lu device ptr %lu \n", _dst.rows, _dst.cols, _dst.type(), _ptr, _dst.cudaPtr() );
-
 }
 
 #endif

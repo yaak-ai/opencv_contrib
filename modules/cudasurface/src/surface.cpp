@@ -58,10 +58,7 @@ namespace {
   void ptr2map_op(size_t _ptr, InputOutputArray _dst, int height, int width, int type, Stream& stream, ptr_func_t func) {
 
     GpuMat& dst = _dst.getGpuMatRef();
-
-    printf("[ptr2map_op] Before dst HxW %dx%d type %d ptr %lu device ptr %lu \n", dst.rows, dst.cols, dst.type(), _ptr, dst.cudaPtr() );
     func(_ptr, dst, height, width, type, stream);
-    printf("[ptr2map_op] After dst HxW %dx%d type %d ptr %lu device ptr %lu \n", dst.rows, dst.cols, dst.type(), _ptr, dst.cudaPtr() );
 
   }
 }
