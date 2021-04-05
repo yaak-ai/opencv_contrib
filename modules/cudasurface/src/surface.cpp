@@ -47,7 +47,7 @@ using namespace cv::cuda;
 
 #if !defined HAVE_CUDA || defined(CUDA_DISABLER)
 
-void cv::cuda::ptr2mat(size_t, OutputArray, int, int, int, Stream&){ throw_no_cuda(); }
+void cv::cuda::ptr2mat(size_t, InputOutputArray, int, int, int, Stream&){ throw_no_cuda(); }
 
 #else // HAVE_CUDA
 
@@ -55,20 +55,17 @@ namespace {
 
   typedef void (*ptr_func_t)(const size_t ptr, GpuMat& src2, int height, int width, int type, Stream& stream);
 
-  void ptr2map_op(size_t _ptr, OutputArray _dst, int height, int width, int type, Stream& stream, ptr_func_t func) {
+  void ptr2map_op(size_t _ptr, InputOutputArray _dst, int height, int width, int type, Stream& stream, ptr_func_t func) {
 
-    _dst.create(height, width, type);
-    GpuMat dst = getOutputMat(_dst, height, width, type, stream);
-
+    GpuMat& dst = _dst.getGpuMatRef();
     func(_ptr, dst, height, width, type, stream);
 
-    syncOutput(dst, _dst, stream);
   }
 }
 
 void ptr2mat_gpu(const size_t _ptr, GpuMat& dst, int height, int width, int type, Stream& stream);
 
-void cv::cuda::ptr2mat(size_t _ptr, OutputArray _dst, int height, int width, int type, Stream& stream)
+void cv::cuda::ptr2mat(size_t _ptr, InputOutputArray _dst, int height, int width, int type, Stream& stream)
 {
   ptr2map_op(_ptr, _dst, height, width, type, stream, ptr2mat_gpu);
 }

@@ -50,4 +50,12 @@
 
 #include "opencv2/core/private.cuda.hpp"
 
+#ifdef HAVE_CUBLAS
+#  include <cublas.h>
+#endif
+
+#ifdef HAVE_CUFFT
+#  include <cufft.h>
+#endif
+
 #endif /* __OPENCV_PRECOMP_H__ */
