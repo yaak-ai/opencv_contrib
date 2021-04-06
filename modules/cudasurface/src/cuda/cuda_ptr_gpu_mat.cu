@@ -52,11 +52,11 @@
 
 using namespace cv::cudev;
 
-void ptr2mat_gpu(const size_t _ptr, GpuMat& _dst, int height, int width, int type, Stream& stream);
+void ptr2mat_gpu(const size_t _ptr, GpuMat& _dst, int height, int width, int step, int type, Stream& stream);
 
-void ptr2mat_gpu(const size_t _ptr, GpuMat& _dst, int height, int width, int type, Stream& stream){
+void ptr2mat_gpu(const size_t _ptr, GpuMat& _dst, int height, int width, int step, int type, Stream& stream){
 
-    GpuMat _mat = GpuMat(height, width, type, (void *) _ptr);
+    GpuMat _mat = GpuMat(height, width, type, (void *) _ptr, step);
 
     _mat.swap(_dst);
 
